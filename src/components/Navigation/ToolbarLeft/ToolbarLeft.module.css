@@ -1,0 +1,41 @@
+.NavContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.NavWrapper {
+    text-decoration: none;
+    padding: 1rem 2rem;
+    width: 15rem;
+}
+
+.NavHeaders {
+    text-align: left;
+    padding: .5rem 0;
+    display: flex;
+    align-items: center;
+}
+
+.NavImg {
+    padding-right: 1rem;
+}
+
+.NavElements {
+    text-align: left;
+    padding: .5rem 0 .5rem 1rem;
+    cursor: pointer;
+}
+
+.ActionBtn {
+    width: 10rem;
+    height: 3rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 3rem;
+    color: white;
+    background-color: black;
+    letter-spacing: 2px;
+    border-radius: 5px;
+}
