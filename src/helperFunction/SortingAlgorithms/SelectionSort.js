@@ -24,3 +24,32 @@ export const selectionSort = (array) => {
     }
     return array;
 };
+
+// -------- SELECTION SORT VISUALISATION -------- //
+export function getSelectionSortAnimations(array) {
+    if (array.length <= 1) return array;
+    const animations = [];
+    const auxiliaryArray = array.slice();
+    doSelectionSort(auxiliaryArray, animations);
+    return [animations]
+}
+
+function doSelectionSort (auxiliaryArray, animations) {
+    const length = auxiliaryArray.length;
+
+    for (let i = 0; i < length - 1; i++) {
+        let minValue = i;
+        for (let j = i + 1; j < length; j++) {
+            // These are the values that we're comparing; we push them once
+            // to change their color, than change color again
+            animations.push([`n1`, j, minValue]);
+            animations.push([`n2`, j, minValue]);
+            if (auxiliaryArray[j] < auxiliaryArray[minValue]) {
+                minValue = j
+            }
+        }
+            animations.push([`swap`, minValue, auxiliaryArray[i]]);
+            animations.push([`swap`, i, auxiliaryArray[minValue]]);
+            swap(auxiliaryArray, i, minValue)
+    }
+}

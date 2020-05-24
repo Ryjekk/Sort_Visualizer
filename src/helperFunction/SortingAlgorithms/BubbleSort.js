@@ -8,9 +8,9 @@ export const bubbleSort = (array) => {
     }
 
     // Loop for length
-    for (let i = 0; i < array.length; i++) {
+    for (let i = 0; i < array.length - 1; i++) {
         // Loop for arr items
-        for (let j = 0; j < array.length; j++) {
+        for (let j = 0; j < array.length - i - 1; j++) {
             // If value is bigger than nex - swap. Comparing two next values
             if (array[j] > array[j+1]) {
                 // Other solution
@@ -25,10 +25,6 @@ export const bubbleSort = (array) => {
 };
 
 // -------- BUBBLE SORT VISUALISATION -------- //
-
-// index of first item + index of second item
-// color them
-
 export function getBubbleSortAnimations(array) {
     if (array.length <= 1) return array;
     const animations = [];
