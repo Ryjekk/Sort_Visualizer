@@ -4,10 +4,18 @@ import Aux from '../../hoc/Aux/Aux'
 import classes from './SortContent.module.css'
 
 import ToolbarLeft from "../../components/Navigation/ToolbarLeft/ToolbarLeft";
-import {mergeSort} from '../../helperFunction/SortingAlgorithms/MergeSort'
-import {bubbleSort} from '../../helperFunction/SortingAlgorithms/BubbleSort'
+import {mergeSort, getMergeSortAnimations} from '../../helperFunction/SortingAlgorithms/MergeSort'
+import {bubbleSort, getBubbleSortAnimations} from '../../helperFunction/SortingAlgorithms/BubbleSort'
 import {selectionSort} from '../../helperFunction/SortingAlgorithms/SelectionSort'
 import {insertionSort} from "../../helperFunction/SortingAlgorithms/InsertionSort";
+
+// Number of bars
+const NUMBER_OF_ARRAY_BARS = 90;
+// Main and following color.
+const PRIMARY_COLOR = 'pink';
+const SECONDARY_COLOR = 'tomato';
+// Animation speed.
+const ANIMATION_SPEED_MS = 100;
 
 class SortContent extends Component {
     state = {
@@ -24,7 +32,7 @@ class SortContent extends Component {
         const array = [];
         // TODO add number of poles according to dynamic width according to window scree object
         // TODO to make a length of arr random add instead 250 = randomIntFromInterval(5, 1000) [check test function]
-        for (let i = 0; i < 30; i++) {
+        for (let i = 0; i < NUMBER_OF_ARRAY_BARS; i++) {
             // TODO add max number according to dynamic screen size in place of 1000
             array.push(randomIntFromInterval(5, 1000))
         }
@@ -33,18 +41,57 @@ class SortContent extends Component {
 
     // Merge sort
     mergeSort = () => {
-        const javaScriptSortedArray = this.state.array.slice().sort((a,b) => a - b);
-        const sortedArray = mergeSort(this.state.array);
-
-        console.log(areArraysAreEqual(javaScriptSortedArray, sortedArray));
+        const animations = getMergeSortAnimations(this.state.array);
+        for (let i = 0; i < animations.length; i++) {
+            const arrayBars = document.getElementsByClassName('array-bar');
+            const isColorChange = i % 3 !== 2;
+            if (isColorChange) {
+                const [barOneIdx, barTwoIdx] = animations[i];
+                const barOneStyle = arrayBars[barOneIdx].style;
+                const barTwoStyle = arrayBars[barTwoIdx].style;
+                const color = i % 3 === 0 ? SECONDARY_COLOR : PRIMARY_COLOR;
+                setTimeout(() => {
+                    barOneStyle.backgroundColor = color;
+                    barTwoStyle.backgroundColor = color;
+                }, i * ANIMATION_SPEED_MS);
+            } else {
+                setTimeout(() => {
+                    const [barOneIdx, newHeight] = animations[i];
+                    const barOneStyle = arrayBars[barOneIdx].style;
+                    barOneStyle.height = `${newHeight}px`;
+                }, i * ANIMATION_SPEED_MS);
+            }
+        }
     };
 
     // Bubble sort
     bubbleSort = () => {
-        const javaScriptSortedArray = this.state.array.slice().sort((a,b) => a - b);
-        const sortedArray = bubbleSort(this.state.array);
-
-        console.log(areArraysAreEqual(javaScriptSortedArray, sortedArray));
+        const animations = getBubbleSortAnimations(this.state.array);
+        for (let i = 0; i < animations.length; i++) {
+            const arrayBars = document.getElementsByClassName('array-bar');
+            const isColorChange = (i % 4 === 0) || (i % 4 === 1);
+            if (isColorChange) {
+                const [barOneIdx, barTwoIdx] = animations[i];
+                const barOneStyle = arrayBars[barOneIdx].style;
+                const barTwoStyle = arrayBars[barTwoIdx].style;
+                const color = i % 4 === 0 ? SECONDARY_COLOR : PRIMARY_COLOR;
+                // Animate pools
+                setTimeout(() => {
+                    barOneStyle.backgroundColor = color;
+                    barTwoStyle.backgroundColor = color;
+                }, i * ANIMATION_SPEED_MS)
+            } else {
+                const [barIdx, newHeight] = animations[i];
+                if (barIdx === -1) {
+                    continue;
+                }
+                const barStyle = arrayBars[barIdx].style;
+                // Animate sort
+                setTimeout(() => {
+                    barStyle.height = `${newHeight}px`;
+                }, i * ANIMATION_SPEED_MS)
+            }
+        }
     };
 
     // Selection sort
@@ -107,10 +154,13 @@ class SortContent extends Component {
                     {array.map((value, idx) => {
                         return (
                             <div
-                                id="array-bar"
-                                className={classes.ArrayBar}
+                                className="array-bar"
                                 key={idx}
-                                style={{height: `${value}px`}}
+                                style={{
+                                    width:"10px",
+                                    margin: "0 1px",
+                                    backgroundColor: PRIMARY_COLOR,
+                                    height: `${value}px`}}
                             >
                             </div>
                         )

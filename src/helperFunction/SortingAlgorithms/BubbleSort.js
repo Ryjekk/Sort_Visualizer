@@ -23,3 +23,37 @@ export const bubbleSort = (array) => {
     }
     return array;
 };
+
+// -------- BUBBLE SORT VISUALISATION -------- //
+
+// index of first item + index of second item
+// color them
+
+export function getBubbleSortAnimations(array) {
+    if (array.length <= 1) return array;
+    const animations = [];
+    const auxiliaryArray = array.slice();
+    doBubbleSort(auxiliaryArray, animations);
+    return animations
+}
+
+function doBubbleSort (auxiliaryArray, animations) {
+    const length = auxiliaryArray.length;
+    for (let i = 0; i < length - 1; i++) {
+        for (let j = 0; j < length - i - 1; j++) {
+            // These are the values that we're comparing; we push them once
+            // to change their color, than change color again
+            animations.push([j, j + 1]);
+            animations.push([j, j + 1]);
+            if (auxiliaryArray[j] > auxiliaryArray[j+1]) {
+                // We overwrite the value at index in the original array
+                animations.push([j, auxiliaryArray[j + 1]]);
+                animations.push([j + 1, auxiliaryArray[j]]);
+                swap(auxiliaryArray, j, j + 1)
+            } else {
+                animations.push([-1, -1]);
+                animations.push([-1, -1]);
+            }
+        }
+    }
+}
