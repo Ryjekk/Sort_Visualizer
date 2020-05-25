@@ -27,6 +27,7 @@ class ToolbarLeft extends Component {
                         <div className={classes.NavElements} onClick={this.props.bubbleSort}><img className={classes.NavImg} src={bulletICO} alt="bullet"/>Bubble Sort</div>
                         <div className={classes.NavElements} onClick={this.props.selectionSort}><img className={classes.NavImg} src={bulletICO} alt="bullet"/>Selection Sort</div>
                         <div className={classes.NavElements} onClick={this.props.insertionSort}><img className={classes.NavImg} src={bulletICO} alt="bullet"/>Insertion Sort</div>
+                        <div className={classes.NavElements} onClick={this.props.bogoSort}><img className={classes.NavImg} src={bulletICO} alt="bullet"/>Bogo Sort</div>
                     </div>
                 </nav>
                 <div>

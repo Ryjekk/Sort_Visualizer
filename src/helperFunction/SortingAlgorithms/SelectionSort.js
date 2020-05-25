@@ -31,7 +31,7 @@ export function getSelectionSortAnimations(array) {
     const animations = [];
     const auxiliaryArray = array.slice();
     doSelectionSort(auxiliaryArray, animations);
-    return [animations]
+    return animations
 }
 
 function doSelectionSort (auxiliaryArray, animations) {

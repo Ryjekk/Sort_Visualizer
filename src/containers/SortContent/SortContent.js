@@ -8,14 +8,15 @@ import {mergeSort, getMergeSortAnimations} from '../../helperFunction/SortingAlg
 import {bubbleSort, getBubbleSortAnimations} from '../../helperFunction/SortingAlgorithms/BubbleSort'
 import {selectionSort, getSelectionSortAnimations} from '../../helperFunction/SortingAlgorithms/SelectionSort'
 import {insertionSort} from "../../helperFunction/SortingAlgorithms/InsertionSort";
+import {bogoSort, getBogoSortAnimations} from "../../helperFunction/SortingAlgorithms/BogoSort";
 
 // Number of bars
-const NUMBER_OF_ARRAY_BARS = 90;
+const NUMBER_OF_ARRAY_BARS = 5;
 // Main and following color.
 const PRIMARY_COLOR = 'pink';
 const SECONDARY_COLOR = 'tomato';
 // Animation speed.
-const ANIMATION_SPEED_MS = 100;
+const ANIMATION_SPEED_MS = 2;
 
 class SortContent extends Component {
     // TODO add button functionality and disable button after clicked
@@ -102,7 +103,7 @@ class SortContent extends Component {
 
     // Selection sort
     selectionSort = () => {
-        const [animations] = getSelectionSortAnimations(this.state.array);
+        const animations = getSelectionSortAnimations(this.state.array);
         for (let i = 0; i < animations.length; i++) {
             const arrayBars = document.getElementsByClassName('array-bar');
             const isColorChange = (animations[i][0] === 'n1') || (animations[i][0] === 'n2');
@@ -131,6 +132,12 @@ class SortContent extends Component {
         const sortedArray = insertionSort(this.state.array);
 
         console.log(areArraysAreEqual(javaScriptSortedArray, sortedArray));
+    };
+
+    // Bogo sort
+    bogoSort = () => {
+        const [animations] = getBogoSortAnimations(this.state.array);
+        console.log(animations)
     };
 
     // Test 100 sorts
@@ -171,6 +178,7 @@ class SortContent extends Component {
                     bubbleSort={this.bubbleSort}
                     selectionSort={this.selectionSort}
                     insertionSort={this.insertionSort}
+                    bogoSort={this.bogoSort}
                     testAlgorithm={this.testAlgorithm}
                 />
                 <div className={classes.SortContent}>
