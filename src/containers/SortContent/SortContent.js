@@ -7,16 +7,16 @@ import ToolbarLeft from "../../components/Navigation/ToolbarLeft/ToolbarLeft";
 import {mergeSort, getMergeSortAnimations} from '../../helperFunction/SortingAlgorithms/MergeSort'
 import {bubbleSort, getBubbleSortAnimations} from '../../helperFunction/SortingAlgorithms/BubbleSort'
 import {selectionSort, getSelectionSortAnimations} from '../../helperFunction/SortingAlgorithms/SelectionSort'
-import {insertionSort} from "../../helperFunction/SortingAlgorithms/InsertionSort";
+import {insertionSort, getInsertionSortAnimations} from "../../helperFunction/SortingAlgorithms/InsertionSort";
 import {bogoSort, getBogoSortAnimations} from "../../helperFunction/SortingAlgorithms/BogoSort";
 
 // Number of bars
-const NUMBER_OF_ARRAY_BARS = 5;
+const NUMBER_OF_ARRAY_BARS = 90;
 // Main and following color.
 const PRIMARY_COLOR = 'pink';
 const SECONDARY_COLOR = 'tomato';
 // Animation speed.
-const ANIMATION_SPEED_MS = 2;
+const ANIMATION_SPEED_MS = 10;
 
 class SortContent extends Component {
     // TODO add button functionality and disable button after clicked
@@ -128,10 +128,28 @@ class SortContent extends Component {
 
     // Insertion sort
     insertionSort = () => {
-        const javaScriptSortedArray = this.state.array.slice().sort((a,b) => a - b);
-        const sortedArray = insertionSort(this.state.array);
-
-        console.log(areArraysAreEqual(javaScriptSortedArray, sortedArray));
+        const animations = getInsertionSortAnimations(this.state.array);
+        for (let i = 0; i < animations.length; i++) {
+            const arrayBars = document.getElementsByClassName('array-bar');
+            const isColorChange = (animations[i][0] === "comparision1") || (animations[i][0] === "comparision2");
+            if(isColorChange === true) {
+                const [tempTextMark, barOneIdx, barTwoIdx] = animations[i];
+                const barOneStyle = arrayBars[barOneIdx].style;
+                const barTwoStyle = arrayBars[barTwoIdx].style;
+                const color = (animations[i][0] === "comparision1") ? SECONDARY_COLOR : PRIMARY_COLOR;
+                setTimeout(() => {
+                    barOneStyle.backgroundColor = color;
+                    barTwoStyle.backgroundColor = color;
+                },i * ANIMATION_SPEED_MS);
+            }
+            else {
+                const [temp, barIndex, newHeight] = animations[i];
+                const barStyle = arrayBars[barIndex].style;
+                setTimeout(() => {
+                    barStyle.height = `${newHeight}px`;
+                },i * ANIMATION_SPEED_MS);
+            }
+        }
     };
 
     // Bogo sort

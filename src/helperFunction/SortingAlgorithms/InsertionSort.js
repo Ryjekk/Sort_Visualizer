@@ -22,3 +22,34 @@ export const insertionSort = (array) => {
     }
     return array
 };
+
+// -------- INSERTION SORT VISUALISATION -------- //
+export function getInsertionSortAnimations(array) {
+    if (array.length <= 1) return array;
+    const animations = [];
+    const auxiliaryArray = array.slice();
+    doInsertionSort(auxiliaryArray, animations);
+    return animations
+}
+
+function doInsertionSort(auxiliaryArray, animations) {
+    const length = auxiliaryArray.length;
+
+    for (let i = 1; i < length; i++) {
+        let key = auxiliaryArray[i];
+        let j = i - 1;
+        animations.push(['n1', j, i]);
+        animations.push(['n2', j, i]);
+        while (j >= 0 && auxiliaryArray[j] > key) {
+            animations.push(["overwrite", j + 1, auxiliaryArray[j]]);
+            auxiliaryArray[j+1] = auxiliaryArray[j];
+            j--;
+            if(j >= 0) {
+                animations.push(["comparision1", j, i]);
+                animations.push(["comparision2", j, i]);
+            }
+        }
+        animations.push(["overwrite", j + 1, key]);
+        auxiliaryArray[j+1] = key;
+    }
+}
