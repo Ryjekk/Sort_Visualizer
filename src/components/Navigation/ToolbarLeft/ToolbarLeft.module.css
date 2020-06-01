@@ -20,10 +20,17 @@
     padding-right: 1rem;
 }
 
-.NavElements {
-    text-align: left;
-    padding: .5rem 0 .5rem 1rem;
+.NavElementsButton {
+    padding: .5rem;
+    text-align: start;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin: .5rem 3rem .5rem .7rem;
     cursor: pointer;
+}
+
+.NavElementsButton:hover {
+    background-color: #E5E6EB;
 }
 
 .ActionBtn {

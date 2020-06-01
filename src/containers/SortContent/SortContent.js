@@ -11,7 +11,7 @@ import {insertionSort, getInsertionSortAnimations} from "../../helperFunction/So
 import {bogoSort, getBogoSortAnimations} from "../../helperFunction/SortingAlgorithms/BogoSort";
 
 // Number of bars
-const NUMBER_OF_ARRAY_BARS = 90;
+const NUMBER_OF_ARRAY_BARS = 20;
 // Main and following color.
 const PRIMARY_COLOR = 'pink';
 const SECONDARY_COLOR = 'tomato';
