@@ -59,7 +59,7 @@ class ToolbarLeft extends Component {
                         <div
                             className={classes.NavElementsButton}
                             onClick={() => this.passAlgorithmHandler(this.props.quikSort, "Quick")}>
-                            <img className={classes.NavImg} src={bulletICO} alt="bullet"/>Quick Sort
+                            <img className={classes.NavImg} src={bulletICO} alt="bullet"/>Quick Sort [Lomuto]
                         </div>
                     </div>
                 </nav>

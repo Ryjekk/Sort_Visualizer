@@ -9,7 +9,7 @@ import {bubbleSort, getBubbleSortAnimations} from '../../helperFunction/SortingA
 import {selectionSort, getSelectionSortAnimations} from '../../helperFunction/SortingAlgorithms/SelectionSort'
 import {insertionSort, getInsertionSortAnimations} from "../../helperFunction/SortingAlgorithms/InsertionSort";
 import {bogoSort, getBogoSortAnimations} from "../../helperFunction/SortingAlgorithms/BogoSort";
-import {quickSort} from "../../helperFunction/SortingAlgorithms/QuickSort";
+import {quickSort, getQuickSortAnimations} from "../../helperFunction/SortingAlgorithms/QuickSort";
 
 // Number of bars
 const NUMBER_OF_ARRAY_BARS = 20;
@@ -159,13 +159,45 @@ class SortContent extends Component {
         console.log(animations)
     };
 
-    // Quick sort
+    // Quick sort Lomuto
     quickSort = () => {
-        const javaScriptSortedArray = this.state.array.slice().sort((a,b) => a - b);
-        const sortedArray = quickSort(this.state.array, 0, this.state.array.length - 1);
-
-        console.log(areArraysAreEqual(javaScriptSortedArray, sortedArray));
+        const animations = getQuickSortAnimations(this.state.array);
+        for (let i = 0; i < animations.length - 1; i++) {
+            const isColorChange = (i % 6 === 0) || (i % 6 === 1);
+            const arrayBars = document.getElementsByClassName('array-bar');
+            if(isColorChange === true) {
+                const color = (i % 6 === 0) ? SECONDARY_COLOR : PRIMARY_COLOR;
+                const [barOneIndex, barTwoIndex] = animations[i];
+                if(barOneIndex === -1) {
+                    continue;
+                }
+                const barOneStyle = arrayBars[barOneIndex].style;
+                const barTwoStyle = arrayBars[barTwoIndex].style;
+                setTimeout(() => {
+                    barOneStyle.backgroundColor = color;
+                    barTwoStyle.backgroundColor = color;
+                },i * ANIMATION_SPEED_MS);
+            }
+            else {
+                const [barIndex, newHeight] = animations[i];
+                if (barIndex === -1) {
+                    continue;
+                }
+                const barStyle = arrayBars[barIndex].style;
+                setTimeout(() => {
+                    barStyle.height = `${newHeight}px`;
+                },i * ANIMATION_SPEED_MS);
+            }
+        }
     };
+
+    // Quick sort
+    // quickSort = () => {
+    //     const javaScriptSortedArray = this.state.array.slice().sort((a,b) => a - b);
+    //     const sortedArray = quickSort(this.state.array, 0, this.state.array.length - 1);
+    //
+    //     console.log(areArraysAreEqual(javaScriptSortedArray, sortedArray));
+    // };
 
     // Test 100 sorts
     testAlgorithm = () => {
