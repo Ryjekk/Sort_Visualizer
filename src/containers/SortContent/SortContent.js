@@ -10,6 +10,7 @@ import {selectionSort, getSelectionSortAnimations} from '../../helperFunction/So
 import {insertionSort, getInsertionSortAnimations} from "../../helperFunction/SortingAlgorithms/InsertionSort";
 import {bogoSort, getBogoSortAnimations} from "../../helperFunction/SortingAlgorithms/BogoSort";
 import {quickSort, getQuickSortAnimations} from "../../helperFunction/SortingAlgorithms/QuickSort";
+import {quickSortHoare} from "../../helperFunction/SortingAlgorithms/QuickSortHoare";
 
 // Number of bars
 const NUMBER_OF_ARRAY_BARS = 20;
@@ -159,7 +160,7 @@ class SortContent extends Component {
         console.log(animations)
     };
 
-    // Quick sort Lomuto
+    // Quick sort [Lomuto]
     quickSort = () => {
         const animations = getQuickSortAnimations(this.state.array);
         for (let i = 0; i < animations.length - 1; i++) {
@@ -191,6 +192,14 @@ class SortContent extends Component {
         }
     };
 
+    // Quick sort [Hoare]
+    quickSortHoare = () => {
+        const javaScriptSortedArray = this.state.array.slice().sort((a,b) => a - b);
+        const sortedArray = quickSortHoare(this.state.array, 0, this.state.array.length - 1);
+
+        console.log(areArraysAreEqual(javaScriptSortedArray, sortedArray));
+    };
+
     // Quick sort
     // quickSort = () => {
     //     const javaScriptSortedArray = this.state.array.slice().sort((a,b) => a - b);
@@ -214,6 +223,7 @@ class SortContent extends Component {
           const selectionSortedArray = selectionSort(array.slice());
           const insertionSortedArray = insertionSort(array.slice());
           const quickSortedArray = quickSort(array.slice(), 0, array.length - 1);
+          const quickSortedHoareArray = quickSortHoare(array.slice(), 0, array.length - 1);
           console.log(`-> Merge Sort Check`, areArraysAreEqual(javaScriptSortedArray, mergeSortedArray),
                     '\n',
                     `-> Bubble Sort Check`, areArraysAreEqual(javaScriptSortedArray, bubbleSortedArray),
@@ -222,7 +232,9 @@ class SortContent extends Component {
                     '\n',
                     `-> Insertion Sort Check`, areArraysAreEqual(javaScriptSortedArray, insertionSortedArray),
                     '\n',
-                    `-> Quick Sort Check`, areArraysAreEqual(javaScriptSortedArray, quickSortedArray)
+                    `-> Quick Sort [Lomuto] Check`, areArraysAreEqual(javaScriptSortedArray, quickSortedArray),
+                    '\n',
+                    `-> Quick Sort [Hoare] Check`, areArraysAreEqual(javaScriptSortedArray, quickSortedHoareArray)
           );
 
       }
@@ -241,7 +253,8 @@ class SortContent extends Component {
                     selectionSort={this.selectionSort}
                     insertionSort={this.insertionSort}
                     bogoSort={this.bogoSort}
-                    quikSort={this.quickSort}
+                    quickSort={this.quickSort}
+                    quickSortHoare={this.quickSortHoare}
                     testAlgorithm={this.testAlgorithm}
                 />
                 <div className={classes.SortContent}>
