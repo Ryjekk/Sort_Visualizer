@@ -44,7 +44,6 @@ function doQuickSort(auxiliaryArray, start, end, animations) {
     let idx = partitionHelper(auxiliaryArray, start, end, animations);
     doQuickSort(auxiliaryArray, start, idx - 1, animations);
     doQuickSort(auxiliaryArray, idx + 1, end, animations)
-
 }
 
 function partitionHelper(auxiliaryArray, start, end, animations) {

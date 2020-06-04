@@ -18,6 +18,17 @@ class ToolbarLeft extends Component {
     };
 
     render() {
+        let sortButton = <div className={classes.ActionBtnDisabled} onClick={this.state.activeAlgorithm}>
+            Choose Algorithm!
+        </div>;
+
+        if (this.state.name) {
+            sortButton =  <div className={classes.ActionBtn} onClick={this.state.activeAlgorithm}>
+                {this.state.name} Sort!
+            </div>
+        }
+
+
         return (
             <div className={classes.NavContainer}>
                 <nav className={classes.NavWrapper}>
@@ -26,7 +37,7 @@ class ToolbarLeft extends Component {
                     <div className={classes.NavHeaders}><img className={classes.NavImg} src={propsICO} alt="props"/>Props</div>
                     <div>
                         <div className={classes.NavElementsButton} onClick={this.props.resetArray}><img className={classes.NavImg} src={bulletICO} alt="bullet"/>Generate Array</div>
-                        <div className={classes.NavElementsButton}><img className={classes.NavImg} src={bulletICO} alt="bullet"/>Number of inputs</div>
+                        {/*<div className={classes.NavElementsButton}><img className={classes.NavImg} src={bulletICO} alt="bullet"/>Number of inputs</div>*/}
                     </div>
                     <hr/>
                     <div className={classes.NavHeaders}><img className={classes.NavImg} src={sort1ICO} alt="sort type"/>Sort type</div>
@@ -56,25 +67,23 @@ class ToolbarLeft extends Component {
                             onClick={() => this.passAlgorithmHandler(this.props.quickSort, "Quick")}>
                             <img className={classes.NavImg} src={bulletICO} alt="bullet"/>Quick Sort [Lomuto]
                         </div>
-                        <div
-                            className={classes.NavElementsButton}
-                            onClick={() => this.passAlgorithmHandler(this.props.quickSortHoare, "Quick")}>
-                            <img className={classes.NavImg} src={bulletICO} alt="bullet"/>Quick Sort [Hoare]
-                        </div>
-                        <div
-                            className={classes.NavElementsButton}
-                            onClick={() => this.passAlgorithmHandler(this.props.bogoSort, "Bogo")}>
-                            <img className={classes.NavImg} src={bulletICO} alt="bullet"/>Bogo Sort
-                        </div>
+                        {/*<div*/}
+                        {/*    className={classes.NavElementsButton}*/}
+                        {/*    onClick={() => this.passAlgorithmHandler(this.props.quickSortHoare, "Quick")}>*/}
+                        {/*    <img className={classes.NavImg} src={bulletICO} alt="bullet"/>Quick Sort [Hoare]*/}
+                        {/*</div>*/}
+                        {/*<div*/}
+                        {/*    className={classes.NavElementsButton}*/}
+                        {/*    onClick={() => this.passAlgorithmHandler(this.props.bogoSort, "Bogo")}>*/}
+                        {/*    <img className={classes.NavImg} src={bulletICO} alt="bullet"/>Bogo Sort*/}
+                        {/*</div>*/}
                     </div>
                 </nav>
                 <div>
-                    <div className={classes.ActionBtn} onClick={this.state.activeAlgorithm}>
-                        {this.state.name} Sort!
-                    </div>
-                    <div className={classes.ActionBtn} onClick={this.props.testAlgorithm}>
-                        Test In Console
-                    </div>
+                    {sortButton}
+                    {/*<div className={classes.ActionBtn} onClick={this.props.testAlgorithm}>*/}
+                    {/*    Test In Console*/}
+                    {/*</div>*/}
                 </div>
             </div>
         )

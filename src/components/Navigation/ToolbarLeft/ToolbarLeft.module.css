@@ -25,11 +25,12 @@
     text-align: start;
     border-radius: 5px;
     border: 1px solid #ccc;
-    margin: .5rem 3rem .5rem .7rem;
+    margin: .5rem 3rem 1rem .7rem;
     cursor: pointer;
 }
 
-.NavElementsButton:hover {
+.NavElementsButton:hover,
+.ActionBtnDisabled:hover {
     background-color: #E5E6EB;
 }
 
@@ -43,6 +44,34 @@
     margin: 0 auto 3rem;
     color: white;
     background-color: black;
+    letter-spacing: 2px;
+    border-radius: 5px;
+    box-shadow: 0 .3rem 1rem rgb(56, 56, 56);
+    transition: all .2s;
+}
+
+.ActionBtn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 .5rem 1.5rem rgb(56, 56, 56);
+}
+
+.ActionBtn:active,
+.ActionBtn:focus {
+     outline: none;
+     transform: translateY(-1px);
+     box-shadow: 0 .5rem 1rem rgb(56, 56, 56);
+ }
+
+.ActionBtnDisabled {
+    width: 10rem;
+    height: 3rem;
+    cursor: not-allowed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 3rem;
+    color: #656565;
+    border: 1px solid #ccc;
     letter-spacing: 2px;
     border-radius: 5px;
 }

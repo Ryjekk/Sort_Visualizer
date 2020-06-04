@@ -10,15 +10,15 @@ import {selectionSort, getSelectionSortAnimations} from '../../helperFunction/So
 import {insertionSort, getInsertionSortAnimations} from "../../helperFunction/SortingAlgorithms/InsertionSort";
 import {bogoSort, getBogoSortAnimations} from "../../helperFunction/SortingAlgorithms/BogoSort";
 import {quickSort, getQuickSortAnimations} from "../../helperFunction/SortingAlgorithms/QuickSort";
-import {quickSortHoare} from "../../helperFunction/SortingAlgorithms/QuickSortHoare";
+import {quickSortHoare, getQuickSortHoareAnimations} from "../../helperFunction/SortingAlgorithms/QuickSortHoare";
 
 // Number of bars
-const NUMBER_OF_ARRAY_BARS = 20;
+const NUMBER_OF_ARRAY_BARS = 190;
 // Main and following color.
 const PRIMARY_COLOR = 'pink';
 const SECONDARY_COLOR = 'tomato';
 // Animation speed.
-const ANIMATION_SPEED_MS = 10;
+const ANIMATION_SPEED_MS = 2;
 
 class SortContent extends Component {
     // TODO add button functionality and disable button after clicked
@@ -164,8 +164,8 @@ class SortContent extends Component {
     quickSort = () => {
         const animations = getQuickSortAnimations(this.state.array);
         for (let i = 0; i < animations.length - 1; i++) {
-            const isColorChange = (i % 6 === 0) || (i % 6 === 1);
             const arrayBars = document.getElementsByClassName('array-bar');
+            const isColorChange = (i % 6 === 0) || (i % 6 === 1);
             if(isColorChange === true) {
                 const color = (i % 6 === 0) ? SECONDARY_COLOR : PRIMARY_COLOR;
                 const [barOneIndex, barTwoIndex] = animations[i];
@@ -194,10 +194,29 @@ class SortContent extends Component {
 
     // Quick sort [Hoare]
     quickSortHoare = () => {
-        const javaScriptSortedArray = this.state.array.slice().sort((a,b) => a - b);
-        const sortedArray = quickSortHoare(this.state.array, 0, this.state.array.length - 1);
-
-        console.log(areArraysAreEqual(javaScriptSortedArray, sortedArray));
+        const animations = getQuickSortHoareAnimations(this.state.array);
+        console.log(animations)
+        for (let i = 0; i < animations.length - 1; i++) {
+            const arrayBars = document.getElementsByClassName('array-bar');
+            const isColorChange = (i % 6 === 0) || (i % 6 === 1);
+            if(isColorChange === true) {
+                const color = (i % 6 === 0) ? SECONDARY_COLOR : PRIMARY_COLOR;
+                const [tempTextMark, barOneIndex, barTwoIndex] = animations[i];
+                const barOneStyle = arrayBars[barOneIndex].style;
+                const barTwoStyle = arrayBars[barTwoIndex].style;
+                setTimeout(() => {
+                    barOneStyle.backgroundColor = color;
+                    barTwoStyle.backgroundColor = color;
+                },i * ANIMATION_SPEED_MS);
+            }
+            else {
+                const [tempTextMark, barIndex, newHeight] = animations[i];
+                const barStyle = arrayBars[barIndex].style;
+                setTimeout(() => {
+                    barStyle.height = `${newHeight}px`;
+                },i * ANIMATION_SPEED_MS);
+            }
+        }
     };
 
     // Quick sort
@@ -264,7 +283,7 @@ class SortContent extends Component {
                                 className="array-bar"
                                 key={idx}
                                 style={{
-                                    width:"10px",
+                                    width:"5px",
                                     margin: "0 1px",
                                     backgroundColor: PRIMARY_COLOR,
                                     height: `${value}px`}}

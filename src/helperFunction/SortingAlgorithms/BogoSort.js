@@ -36,9 +36,11 @@ export function getBogoSortAnimations(array) {
 function shuffleVisual (list, animations) {
     // Shuffling the list
     for(let j, x, i = list.length; i; j = Math.floor(Math.random() * i), x = list[--i], list[i] = list[j], list[j] = x);
-    console.log(list)
+    console.log(list);
+    animations.push(list);
     return list;
 }
+
 
 function isSortedVisual(auxiliaryArray, animations){
     // Loop on array elements to check if are in order
@@ -57,9 +59,7 @@ function doBogoSort (auxiliaryArray, animations) {
     while(sorted === false){
         // animations.push([Math.floor(Math.random() * auxiliaryArray.length),Math.floor(Math.random() * auxiliaryArray.length)]);
         // animations.push([Math.floor(Math.random() * auxiliaryArray.length),Math.floor(Math.random() * auxiliaryArray.length)]);
-        auxiliaryArray = shuffleVisual(auxiliaryArray);
-        sorted = isSortedVisual(auxiliaryArray);
-        console.log(auxiliaryArray)
+        auxiliaryArray = shuffleVisual(auxiliaryArray, animations);
+        sorted = isSortedVisual(auxiliaryArray, animations);
     }
-    return auxiliaryArray;
 }
